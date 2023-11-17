@@ -7,7 +7,7 @@ import datetime
 router = APIRouter()
 
 
-# GET /api/v1/user_section/{phone_number}/ - Get a status of user
+# GET /api/v1/user_section/{phone_number}/ - Get a status of user # verify user
 @router.get(
     "/{phone_number}",
     status_code=status.HTTP_200_OK,
@@ -57,7 +57,7 @@ async def update_user(dwelling_id: str, req: user_reqmodel.patch_req):
         # buisness logic
 
         return {
-                "message": "signup successful",
+                "message": "signup successful",  # response as get user
                 }
     except Exception as e:
         raise HTTPException(
@@ -66,7 +66,7 @@ async def update_user(dwelling_id: str, req: user_reqmodel.patch_req):
         )
 
 
-# PATCH /api/v1/user_section/{user_name}/ - patch user_name
+# PATCH /api/v1/user_section/{user_name}/ - patch user_name # no need
 @router.patch(
     "/{user_name}",
     status_code=status.HTTP_200_OK,
