@@ -32,7 +32,7 @@ class user_status(BaseModel):
     name: Optional[str]
 
 
-class read_model(BaseModel):
+class user_model(BaseModel):
     user_id: str
     name: str
     mobile: str

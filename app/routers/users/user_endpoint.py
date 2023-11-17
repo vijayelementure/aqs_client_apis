@@ -1,24 +1,51 @@
 from fastapi import APIRouter, HTTPException, status
 from app.routers.users import user_resmodel
 from app.routers.users import user_reqmodel
-import datetime
 
 
 router = APIRouter()
 
 
-# GET /api/v1/user_section/{phone_number}/ - Get a status of user # verify user
+# GET /api/v1/verify_user/{phone_number}/ -verify user
 @router.get(
-    "/{phone_number}",
+    "/verify_user/{phone_number}",
     status_code=status.HTTP_200_OK,
-    response_model=user_resmodel.user_status,
+    response_model=user_resmodel.user_model,
 )
-async def read_status(
+async def verify_user(
     phone_number: str,
 ):
     try:
         # buisness logic here
-        return {"message": "Signed in Successfully"}
+        return {
+                    "user_id": "string",
+                    "name": "string",
+                    "mobile": "string",
+                    "email": "string",
+                    "birth_date": "string",
+                    "dp_url": "string",
+                    "dwell_info": [
+                        {
+                            "community_id": "string",
+                            "community_name": "string",
+                            "dwell_id": "string",
+                            "block": "string",
+                            "floor_no": "string",
+                            "flat_no": "string",
+                            "role": "string",
+                            "user_status": "string"
+                        }
+                    ],
+                    "meta": {
+                        "ver": "string",
+                        "created_by": "string",
+                        "created_at": "2023-11-17T12:04:55.672Z",
+                        "activity": {
+                                    "updated_by": "string",
+                                    "updated_at": "2023-11-17T12:04:55.672Z"
+                                     }
+                    }
+                    }
     except Exception as e:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
@@ -26,23 +53,45 @@ async def read_status(
         )
 
 
-# GET /api/v1/user_section/{dwelling_id}/ - Get user
+# GET /api/v1/get_user/{user_id}/ - Get user
 @router.get(
-    "/{dwelling_id}",
+    "/get_user/{user_id}",
     status_code=status.HTTP_200_OK,
-    response_model=user_resmodel.read_model,
+    response_model=user_resmodel.user_model,
 )
-async def read_one(
-    dwelling_id: str,
-):
+async def get_user():
     try:
         # buisness logic
 
         return {
-            "full_name": "string",
-            "date_of_birth": datetime,
-            "email": "string",
-        }
+                    "user_id": "string",
+                    "name": "string",
+                    "mobile": "string",
+                    "email": "string",
+                    "birth_date": "string",
+                    "dp_url": "string",
+                    "dwell_info": [
+                        {
+                            "community_id": "string",
+                            "community_name": "string",
+                            "dwell_id": "string",
+                            "block": "string",
+                            "floor_no": "string",
+                            "flat_no": "string",
+                            "role": "string",
+                            "user_status": "string"
+                        }
+                    ],
+                    "meta": {
+                        "ver": "string",
+                        "created_by": "string",
+                        "created_at": "2023-11-17T12:04:55.672Z",
+                        "activity": {
+                                    "updated_by": "string",
+                                    "updated_at": "2023-11-17T12:04:55.672Z"
+                                     }
+                    }
+                    }
     except Exception as e:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
@@ -50,9 +99,9 @@ async def read_one(
         )
 
 
-# PATCH /api/v1/user_section/{phone_number}/ - patch user
+# PATCH /api/v1/users/{user_id}/ - patch user
 @router.patch(
-    "/{dwelling_id}",
+    "/{user_id}",
     status_code=status.HTTP_200_OK,
     response_model=user_resmodel.general_response,
 )
