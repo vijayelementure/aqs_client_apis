@@ -1,4 +1,4 @@
-from fastapi import APIRouter,HTTPException,status
+from fastapi import APIRouter, HTTPException, status
 from app.routers.users import user_resmodel
 from app.routers.users import user_reqmodel
 import datetime
@@ -15,25 +15,24 @@ router = APIRouter()
 async def read_status(phone_number: str,):
     try:
         # buisness logic here
-  
         return {
-                "message":"Signed in Successfully"
+                "message": "Signed in Successfully"
                 }
     except Exception as e:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail=str(e),
-        ) 
+        )
 
 
 # GET /api/v1/user_section/{dwelling_id}/ - Get user
 @router.get(
     "/{dwelling_id}",
     status_code=status.HTTP_200_OK,
-    response_model= user_resmodel.read_model
+    response_model=user_resmodel.read_model
 )
 async def read_one(dwelling_id: str,):
-    try:        
+    try:
         # buisness logic
 
         return {
@@ -53,7 +52,7 @@ async def read_one(dwelling_id: str,):
     "/{dwelling_id}",
     status_code=status.HTTP_200_OK,
 )
-async def update_user(dwelling_id: str, req:user_reqmodel.patch_req):
+async def update_user(dwelling_id: str, req: user_reqmodel.patch_req):
     try:
         # buisness logic
 
@@ -65,7 +64,6 @@ async def update_user(dwelling_id: str, req:user_reqmodel.patch_req):
             status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
             detail=str(e),
         )
-
 
 
 # PATCH /api/v1/user_section/{user_name}/ - patch user_name
@@ -85,15 +83,14 @@ async def update_name(user_name: str,):
             status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
             detail=str(e),
         )
-    
 
 
-# PATCH /api/v1/user_section/{dwelling_id} - logout 
+# PATCH /api/v1/user_section/{dwelling_id} - logout
 @router.get(
     "/{dwelling_id}/",
     status_code=status.HTTP_200_OK,
 )
-async def log_out(dwelling_id: str,req: user_reqmodel.logout_req):
+async def log_out(dwelling_id: str, req: user_reqmodel.logout_req):
     try:
         # buisness logic
 
@@ -105,4 +102,3 @@ async def log_out(dwelling_id: str,req: user_reqmodel.logout_req):
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail=str(e),
         )
-

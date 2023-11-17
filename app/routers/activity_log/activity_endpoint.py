@@ -1,6 +1,5 @@
-from fastapi import APIRouter,status,HTTPException
+from fastapi import APIRouter, status, HTTPException
 from datetime import datetime
-from typing import List
 from app.routers.activity_log import activity_resmodel
 
 router = APIRouter()
@@ -10,7 +9,7 @@ router = APIRouter()
 @router.get(
     "/{dwelling_id}",
     status_code=status.HTTP_200_OK,
-    response_model= activity_resmodel.activity_logs
+    response_model=activity_resmodel.activity_logs
 )
 async def activity_logs(dwelling_id: str,):
     try:
@@ -21,7 +20,7 @@ async def activity_logs(dwelling_id: str,):
                 "title": "string",
                 "body": "string",
                 "timesatmp": datetime.datetime.now(),
-                "activty_type": List["string"],
+                "activty_type": ["string", "string"],
             }
     except Exception as e:
         raise HTTPException(

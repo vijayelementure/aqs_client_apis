@@ -1,6 +1,6 @@
-from fastapi import APIRouter,status,HTTPException
+from fastapi import APIRouter, status, HTTPException
 from app.routers.users.members import mem_reqmodel, mem_resmodel
-import datetime
+
 
 router = APIRouter()
 
@@ -10,25 +10,25 @@ router = APIRouter()
     "/{dwelling_id}",
     status_code=status.HTTP_201_CREATED,
 )
-async def add_member(dwelling_id: str,req:mem_reqmodel.add_mem):
+async def add_member(dwelling_id: str, req: mem_reqmodel.add_mem):
     try:
         # buisness logic
 
         return {
-                "message":"members added successfully"
+                "message": "members added successfully"
                 }
     except Exception as e:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail=str(e),
         )
-    
+
 
 # GET api/v1/members/{dwelling_id}/ - list of members
 @router.get(
     "/{dwelling_id}",
     status_code=status.HTTP_200_OK,
-    response_model= mem_resmodel.members_list
+    response_model=mem_resmodel.members_list
 )
 async def read_members(dwelling_id: str,):
     try:
@@ -59,7 +59,6 @@ async def update_memstatus(dwelling_id: str,):
             status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
             detail=str(e),
         )
-    
 
 
 # DELETE api/v1/members/{dwelling_id}/ - delete members
@@ -79,5 +78,3 @@ async def delete_member(dwelling_id: str,):
             status_code=status.HTTP_204_NO_CONTENT,
             detail=str(e),
         )
-    
-    
