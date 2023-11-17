@@ -78,3 +78,21 @@ async def delete_member(dwelling_id: str,):
             status_code=status.HTTP_204_NO_CONTENT,
             detail=str(e),
         )
+
+
+# GET api/v1/members/{dwelling_id}/ - list of roles
+@router.get(
+    "/{dwelling_id}/",
+    status_code=status.HTTP_200_OK,
+    response_model=mem_resmodel.roles_list
+)
+async def list_roles(dwelling_id: str,):
+    try:
+        # buisness logic
+
+        return list(dict)
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=str(e),
+        )
