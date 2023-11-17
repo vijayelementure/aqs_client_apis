@@ -7,3 +7,7 @@ class add_mem(BaseModel):
     phone_number: str
     email: str
     role: List[str]
+
+
+class update_mem(BaseModel):
+    status: str
