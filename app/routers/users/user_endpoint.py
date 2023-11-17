@@ -101,7 +101,7 @@ async def get_user():
 
 # PATCH /api/v1/users/{user_id}/ - patch user
 @router.patch(
-    "/{user_id}",
+    "/update_user/{user_id}",
     status_code=status.HTTP_200_OK,
     response_model=user_resmodel.general_response,
 )
@@ -110,7 +110,17 @@ async def update_user(dwelling_id: str, req: user_reqmodel.patch_req):
         # buisness logic
 
         return {
-                "message": "signup successful",  # response as get user
+                "detail": "string",
+                "status": "string",
+                "meta": {
+                    "ver": "string",
+                    "created_by": "string",
+                    "created_at": "2023-11-17T12:35:35.009Z",
+                    "activity": {
+                        "updated_by": "string",
+                        "updated_at": "2023-11-17T12:35:35.009Z"
+                    }
+                }
                 }
     except Exception as e:
         raise HTTPException(
@@ -119,41 +129,41 @@ async def update_user(dwelling_id: str, req: user_reqmodel.patch_req):
         )
 
 
-# PATCH /api/v1/user_section/{user_name}/ - patch user_name # no need
-@router.patch(
-    "/{user_name}",
-    status_code=status.HTTP_200_OK,
-    response_model=user_resmodel.general_response,
-)
-async def update_name(
-    user_name: str,
-):
-    try:
-        # buisness logic
+# # PATCH /api/v1/user_section/{user_name}/ - patch user_name # no need
+# @router.patch(
+#     "/{user_name}",
+#     status_code=status.HTTP_200_OK,
+#     response_model=user_resmodel.general_response,
+# )
+# async def update_name(
+#     user_name: str,
+# ):
+#     try:
+#         # buisness logic
 
-        return {
-            "message": "name changed",
-        }
-    except Exception as e:
-        raise HTTPException(
-            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
-            detail=str(e),
-        )
+#         return {
+#             "message": "name changed",
+#         }
+#     except Exception as e:
+#         raise HTTPException(
+#             status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+#             detail=str(e),
+#         )
 
 
 # PATCH /api/v1/user_section/{dwelling_id} - logout
 @router.post(
-    "/{dwelling_id}/",
+    "/logout/{user_id}",
     status_code=status.HTTP_200_OK,
     response_model=user_resmodel.general_response,
 )
-async def log_out(dwelling_id: str, req: user_reqmodel.logout_req):
+async def log_out(req: user_reqmodel.logout_req):
     try:
         # buisness logic
 
         return {
-            "message": "logout successfully",
-        }
+                "message": "logout successfully",
+               }
     except Exception as e:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,

@@ -23,8 +23,9 @@ async def activity_logs(
             "title": "string",
             "body": "string",
             "timesatmp": datetime.datetime.now(),
-            "activty_type": ["string", "string"],
-        }
+            "activty_type": "string",
+            "action_by": "string"
+            }
     except Exception as e:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,

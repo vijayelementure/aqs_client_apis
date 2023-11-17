@@ -8,10 +8,10 @@ class dwell_info(BaseModel):
 
 
 class patch_req(BaseModel):
-    name: str
+    name: Optional[str]
     date_of_birth: Optional[str] = "YYYY-MM-DD"
     mobile: Optional[str]
-    email: str
+    email: Optional[str]
     dwellInfo: List[str]
 
 

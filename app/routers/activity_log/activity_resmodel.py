@@ -1,6 +1,5 @@
 from pydantic import BaseModel
 from datetime import datetime
-from typing import List
 
 
 class activity_logs(BaseModel):
@@ -8,4 +7,5 @@ class activity_logs(BaseModel):
     title: str
     body: str
     timesatmp: datetime
-    activty_type: List[str]
+    activty_type: str
+    action_by: str

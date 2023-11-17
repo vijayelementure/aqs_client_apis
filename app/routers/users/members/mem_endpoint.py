@@ -6,17 +6,17 @@ from app.routers.users import user_resmodel
 router = APIRouter()
 
 
-# POST api/v1/members/{dwelling_id}/ - add a members
+# POST api/v1/members/{dwelling_id}/ - add a user
 @router.post(
-    "/{dwelling_id}",
+    "/{user_id}",
     status_code=status.HTTP_201_CREATED,
     response_model=user_resmodel.general_response,
 )
-async def add_member(dwelling_id: str, req: mem_reqmodel.add_mem):
+async def add_member(req: mem_reqmodel.add_user):
     try:
         # buisness logic
 
-        return {"message": "members added successfully"}
+        return {"message": "user added successfully"}
     except Exception as e:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
@@ -30,7 +30,7 @@ async def add_member(dwelling_id: str, req: mem_reqmodel.add_mem):
     status_code=status.HTTP_200_OK,
     response_model=mem_resmodel.members_list,
 )
-async def read_members(
+async def get_users_list(
     dwelling_id: str,
 ):
     try:
@@ -44,54 +44,53 @@ async def read_members(
         )
 
 
-# PATCH api/v1/members/{dwelling_id}/ - update member status
-@router.patch(
-    "/{dwelling_id}",
-    status_code=status.HTTP_200_OK,
-    response_model=user_resmodel.general_response,
-)
-async def update_memstatus(
-    dwelling_id: str,
-    req: mem_reqmodel.update_mem,
-):
-    try:
-        # buisness logic
+# # PATCH api/v1/members/{dwelling_id}/ - update member status
+# @router.patch(
+#     "/{dwelling_id}",
+#     status_code=status.HTTP_200_OK,
+#     response_model=user_resmodel.general_response,
+# )
+# async def update_memstatus(
+#     dwelling_id: str,
+#     req: mem_reqmodel.update_mem,
+# ):
+#     try:
+#         # buisness logic
 
-        return {"message": "member status updated successfully"}
-    except Exception as e:
-        raise HTTPException(
-            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
-            detail=str(e),
-        )
+#         return {"message": "member status updated successfully"}
+#     except Exception as e:
+#         raise HTTPException(
+#             status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+#             detail=str(e),
+#         )
 
 
-# DELETE api/v1/members/{dwelling_id}/ - delete members
-@router.delete(
-    "/{dwelling_id}",
-    status_code=status.HTTP_204_NO_CONTENT,
-)
-async def delete_member(
-    dwelling_id: str,
-):
-    try:
-        # buisness logic
+# DELETE api/v1/members/{user_id}/ - delete members
+# @router.delete(
+#     "/{user_id}",
+#     status_code=status.HTTP_204_NO_CONTENT,
+# )
+# async def delete_member(
+#     dwelling_id: str,
+# ):
+#     try:
+#         # buisness logic
 
-        return None
-    except Exception as e:
-        raise HTTPException(
-            status_code=status.HTTP_204_NO_CONTENT,
-            detail=str(e),
-        )
+#         return None
+#     except Exception as e:
+#         raise HTTPException(
+#             status_code=status.HTTP_204_NO_CONTENT,
+#             detail=str(e),
+#         )
 
 
 # GET api/v1/members/{dwelling_id}/ - list of roles
 @router.get(
-    "/{dwelling_id}/",
+    "/roles_list",
     status_code=status.HTTP_200_OK,
     response_model=mem_resmodel.roles_list,
 )
 async def list_roles(
-    dwelling_id: str,
 ):
     try:
         # buisness logic

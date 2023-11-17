@@ -6,15 +6,15 @@ router = APIRouter()
 
 # GET api/v1/valve/{dwelling_id}/{device_id} - valve status
 @router.get(
-    "/{dwelling_id}/{device_id}",
+    "/valve_status/{dwelling_id}/{device_id}",
     status_code=status.HTTP_200_OK,
     response_model=valve_resmodel.valve_status,
 )
-async def valve_status(dwelling_id: str, device_id: str | None):
+async def valve_status(dwelling_id: str, device_id: str):
     try:
         # buisness logic
 
-        return {"device_id": "string", "status": "string"} # Noqa
+        return {"device_id": "string", "status": "string","tag":"string","custom_tag":"string"} # Noqa
 
     except Exception as e:
         raise HTTPException(
@@ -25,7 +25,7 @@ async def valve_status(dwelling_id: str, device_id: str | None):
 
 # PUT api/v1/valve/{dwelling_id}/{device_id}/- valve open/close
 @router.put(
-    "/{dwelling_id}/{device_id}/{value}",
+    "/valve_ops/{dwelling_id}/{device_id}/{value}",
     status_code=status.HTTP_200_OK,
     response_model=valve_resmodel.valve_ops,
 )
@@ -46,7 +46,7 @@ async def valve_opcl(dwelling_id: str, device_id: str, value: int):
 
 # GET api/v1/limit/{dwelling_id}/- get limit
 @router.get(
-    "/{dwelling_id}",
+    "/get_limit/{dwelling_id}",
     status_code=status.HTTP_200_OK,
     response_model=valve_resmodel.ops_limit,
 )
@@ -64,9 +64,9 @@ async def get_limit(
         )
 
 
-# PATCH api/v1/limit/{dwelling_id}/- update limit
+# PATCH api/v1/limit/{dwelling_id}/- set limit
 @router.patch(
-    "/{dwelling_id}",
+    "/set_limit/{dwelling_id}",
     status_code=status.HTTP_200_OK,
     response_model=valve_resmodel.ops_limit,
 )
@@ -85,9 +85,9 @@ async def set_limit(
         )
 
 
-# PATCH api/v1/CustomTag/{dwelling_id}/{device_id} - update limit
+# PATCH api/v1/CustomTag/{dwelling_id}/{device_id} - custom_tag
 @router.patch(
-    "/{dwelling_id}/{device_id}",
+    "/custom_tag/{dwelling_id}/{device_id}",
     status_code=status.HTTP_200_OK,
     response_model=valve_resmodel.ops_limit,
 )
@@ -96,7 +96,6 @@ async def custom_tag(dwelling_id: str, device_id: str):
         # buisness logic
 
         return {
-            "dwelling_id": "string",
             "device_id": "string",
             "custom_tag": "kitchen",
         }

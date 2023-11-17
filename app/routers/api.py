@@ -10,7 +10,7 @@ router = APIRouter()
 
 router.include_router(
     user_endpoint.router,
-    prefix="/users",
+    prefix="",
     tags=["Users APIs"],
 )
 
@@ -29,7 +29,7 @@ router.include_router(
 
 router.include_router(
     valve_endpoint.router,
-    prefix="/valve",
+    prefix="",
     tags=["Valve Control APIs"],
 )
 
