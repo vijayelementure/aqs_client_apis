@@ -7,4 +7,4 @@ class members_list(BaseModel):
 
 
 class roles_list(BaseModel):
-    roles_list: List[dict]
+    roles_list: List[str]

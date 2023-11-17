@@ -4,15 +4,14 @@ from fastapi import FastAPI
 from app.routers import api
 from mangum import Mangum
 
-description = "user client interface"
+description = "Mobile APIs for Aquesa Mobile"
 
 app = FastAPI(
     title="Aquesa Mobile APIs",
-    summary="Provides Consumption,valve_Control,Activity_Logs & User APIs",
+    summary="Provides Consumption,Valve Control,Activity Logs & User APIs",
     description=description,
     version="1.0.0",
-    docs_url="/docs",
-    openapi_url="/openapi.json",
+    root_path="/dev",
 )
 
 sentry_sdk.init(
@@ -33,7 +32,7 @@ app.include_router(
 )
 
 
-@app.get("/")
+@app.get("/", tags=["Server Check"])
 async def root():
     return {"message": "Aquesa Mobile APIs"}
 

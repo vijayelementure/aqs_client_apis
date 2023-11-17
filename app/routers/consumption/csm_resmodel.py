@@ -2,11 +2,16 @@ from pydantic import BaseModel
 from typing import List
 
 
+class hourly_csm(BaseModel):
+    hourordate: str
+    consumption: int
+
+
 class total_csm(BaseModel):
     dwelling_id: str
-    day_total_consumption: int
-    hourly_consumption: List[dict]
-    monthly_consumption: List[dict]
+    total_consumption: int
+    consumption: List[hourly_csm]
+    # monthly_consumption: List[dict]
 
 
 class ninty_days_csm(BaseModel):

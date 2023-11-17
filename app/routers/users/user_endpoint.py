@@ -1,6 +1,9 @@
 from fastapi import APIRouter, HTTPException, status
 from app.routers.users import user_resmodel
 from app.routers.users import user_reqmodel
+from fastapi import Depends
+
+from app.auth import verify
 
 
 router = APIRouter()
@@ -18,34 +21,34 @@ async def verify_user(
     try:
         # buisness logic here
         return {
-                    "user_id": "string",
-                    "name": "string",
-                    "mobile": "string",
-                    "email": "string",
-                    "birth_date": "string",
-                    "dp_url": "string",
-                    "dwell_info": [
-                        {
-                            "community_id": "string",
-                            "community_name": "string",
-                            "dwell_id": "string",
-                            "block": "string",
-                            "floor_no": "string",
-                            "flat_no": "string",
-                            "role": "string",
-                            "user_status": "string"
-                        }
-                    ],
-                    "meta": {
-                        "ver": "string",
-                        "created_by": "string",
-                        "created_at": "2023-11-17T12:04:55.672Z",
-                        "activity": {
-                                    "updated_by": "string",
-                                    "updated_at": "2023-11-17T12:04:55.672Z"
-                                     }
-                    }
-                    }
+            "user_id": "string",
+            "name": "string",
+            "mobile": "string",
+            "email": "string",
+            "birth_date": "string",
+            "dp_url": "string",
+            "dwell_info": [
+                {
+                    "community_id": "string",
+                    "community_name": "string",
+                    "dwell_id": "string",
+                    "block": "string",
+                    "floor_no": "string",
+                    "flat_no": "string",
+                    "role": "string",
+                    "user_status": "string",
+                }
+            ],
+            "meta": {
+                "ver": "string",
+                "created_by": "string",
+                "created_at": "2023-11-17T12:04:55.672Z",
+                "activity": {
+                    "updated_by": "string",
+                    "updated_at": "2023-11-17T12:04:55.672Z",
+                },
+            },
+        }
     except Exception as e:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
@@ -59,39 +62,41 @@ async def verify_user(
     status_code=status.HTTP_200_OK,
     response_model=user_resmodel.user_model,
 )
-async def get_user():
+async def get_user(
+    user_token=Depends(verify.get_user_token),
+):
     try:
         # buisness logic
 
         return {
-                    "user_id": "string",
-                    "name": "string",
-                    "mobile": "string",
-                    "email": "string",
-                    "birth_date": "string",
-                    "dp_url": "string",
-                    "dwell_info": [
-                        {
-                            "community_id": "string",
-                            "community_name": "string",
-                            "dwell_id": "string",
-                            "block": "string",
-                            "floor_no": "string",
-                            "flat_no": "string",
-                            "role": "string",
-                            "user_status": "string"
-                        }
-                    ],
-                    "meta": {
-                        "ver": "string",
-                        "created_by": "string",
-                        "created_at": "2023-11-17T12:04:55.672Z",
-                        "activity": {
-                                    "updated_by": "string",
-                                    "updated_at": "2023-11-17T12:04:55.672Z"
-                                     }
-                    }
-                    }
+            "user_id": "string",
+            "name": "string",
+            "mobile": "string",
+            "email": "string",
+            "birth_date": "string",
+            "dp_url": "string",
+            "dwell_info": [
+                {
+                    "community_id": "string",
+                    "community_name": "string",
+                    "dwell_id": "string",
+                    "block": "string",
+                    "floor_no": "string",
+                    "flat_no": "string",
+                    "role": "string",
+                    "user_status": "string",
+                }
+            ],
+            "meta": {
+                "ver": "string",
+                "created_by": "string",
+                "created_at": "2023-11-17T12:04:55.672Z",
+                "activity": {
+                    "updated_by": "string",
+                    "updated_at": "2023-11-17T12:04:55.672Z",
+                },
+            },
+        }
     except Exception as e:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
@@ -105,23 +110,27 @@ async def get_user():
     status_code=status.HTTP_200_OK,
     response_model=user_resmodel.general_response,
 )
-async def update_user(dwelling_id: str, req: user_reqmodel.patch_req):
+async def update_user(
+    user_id: str,
+    req: user_reqmodel.patch_req,
+    user_token=Depends(verify.get_user_token),
+):
     try:
         # buisness logic
 
         return {
-                "detail": "string",
-                "status": "string",
-                "meta": {
-                    "ver": "string",
-                    "created_by": "string",
-                    "created_at": "2023-11-17T12:35:35.009Z",
-                    "activity": {
-                        "updated_by": "string",
-                        "updated_at": "2023-11-17T12:35:35.009Z"
-                    }
-                }
-                }
+            "detail": "string",
+            "status": "string",
+            "meta": {
+                "ver": "string",
+                "created_by": "string",
+                "created_at": "2023-11-17T12:35:35.009Z",
+                "activity": {
+                    "updated_by": "string",
+                    "updated_at": "2023-11-17T12:35:35.009Z",
+                },
+            },
+        }
     except Exception as e:
         raise HTTPException(
             status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
@@ -157,13 +166,16 @@ async def update_user(dwelling_id: str, req: user_reqmodel.patch_req):
     status_code=status.HTTP_200_OK,
     response_model=user_resmodel.general_response,
 )
-async def log_out(req: user_reqmodel.logout_req):
+async def log_out(
+    req: user_reqmodel.logout_req,
+    user_token=Depends(verify.get_user_token),
+):
     try:
         # buisness logic
 
         return {
-                "message": "logout successfully",
-               }
+            "message": "logout successfully",
+        }
     except Exception as e:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,

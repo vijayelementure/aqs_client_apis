@@ -1,7 +1,10 @@
-from fastapi import APIRouter, status, HTTPException
-from app.routers.valve_control import valve_resmodel
+from fastapi import APIRouter, status, HTTPException, Depends
+from app.routers.valve_control import valve_resmodel, valve_reqmodel
+from app.auth import verify
 
-router = APIRouter()
+router = APIRouter(
+    dependencies=[Depends(verify.get_user_token)],
+)
 
 
 # GET api/v1/valve/{dwelling_id}/{device_id} - valve status
@@ -14,7 +17,12 @@ async def valve_status(dwelling_id: str, device_id: str):
     try:
         # buisness logic
 
-        return {"device_id": "string", "status": "string","tag":"string","custom_tag":"string"} # Noqa
+        return {
+            "device_id": "string",
+            "status": "string",
+            "tag": "string",
+            "custom_tag": "string",
+        }  # Noqa
 
     except Exception as e:
         raise HTTPException(
@@ -29,7 +37,11 @@ async def valve_status(dwelling_id: str, device_id: str):
     status_code=status.HTTP_200_OK,
     response_model=valve_resmodel.valve_ops,
 )
-async def valve_opcl(dwelling_id: str, device_id: str, value: int):
+async def valve_opcl(
+    dwelling_id: str,
+    device_id: str,
+    value: str,
+):
     try:
         # buisness logic
 
@@ -89,9 +101,13 @@ async def set_limit(
 @router.patch(
     "/custom_tag/{dwelling_id}/{device_id}",
     status_code=status.HTTP_200_OK,
-    response_model=valve_resmodel.ops_limit,
+    response_model=valve_resmodel.custom_tag,
 )
-async def custom_tag(dwelling_id: str, device_id: str):
+async def custom_tag(
+    dwelling_id: str,
+    device_id: str,
+    req: valve_reqmodel.custom_tag,
+):
     try:
         # buisness logic
 

@@ -1,14 +1,18 @@
 from fastapi import APIRouter, status, HTTPException
 from app.routers.users.members import mem_reqmodel, mem_resmodel
 from app.routers.users import user_resmodel
+from app.auth import verify
+from fastapi import Depends
 
 
-router = APIRouter()
+router = APIRouter(
+    dependencies=[Depends(verify.get_user_token)],
+)
 
 
 # POST api/v1/members/{dwelling_id}/ - add a user
 @router.post(
-    "/{user_id}",
+    "/members/",
     status_code=status.HTTP_201_CREATED,
     response_model=user_resmodel.general_response,
 )
@@ -26,7 +30,7 @@ async def add_member(req: mem_reqmodel.add_user):
 
 # GET api/v1/members/{dwelling_id}/ - list of members
 @router.get(
-    "/{dwelling_id}",
+    "/members/{dwelling_id}",
     status_code=status.HTTP_200_OK,
     response_model=mem_resmodel.members_list,
 )
@@ -44,25 +48,25 @@ async def get_users_list(
         )
 
 
-# # PATCH api/v1/members/{dwelling_id}/ - update member status
-# @router.patch(
-#     "/{dwelling_id}",
-#     status_code=status.HTTP_200_OK,
-#     response_model=user_resmodel.general_response,
-# )
-# async def update_memstatus(
-#     dwelling_id: str,
-#     req: mem_reqmodel.update_mem,
-# ):
-#     try:
-#         # buisness logic
+# PATCH api/v1/members/{dwelling_id}/ - update member status
+@router.patch(
+    "/members/{user_id}",
+    status_code=status.HTTP_200_OK,
+    response_model=user_resmodel.general_response,
+)
+async def update_memstatus(
+    user_id: str,
+    req: mem_reqmodel.update_mem,
+):
+    try:
+        # buisness logic
 
-#         return {"message": "member status updated successfully"}
-#     except Exception as e:
-#         raise HTTPException(
-#             status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
-#             detail=str(e),
-#         )
+        return {"message": "member status updated successfully"}
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+            detail=str(e),
+        )
 
 
 # DELETE api/v1/members/{user_id}/ - delete members
@@ -90,8 +94,7 @@ async def get_users_list(
     status_code=status.HTTP_200_OK,
     response_model=mem_resmodel.roles_list,
 )
-async def list_roles(
-):
+async def list_roles():
     try:
         # buisness logic
 

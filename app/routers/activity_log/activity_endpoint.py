@@ -1,9 +1,13 @@
-from fastapi import APIRouter, status, HTTPException
+from fastapi import APIRouter, status, HTTPException, Depends
 from datetime import datetime
 from app.routers.activity_log import activity_resmodel
 from typing import List
 
-router = APIRouter()
+from app.auth import verify
+
+router = APIRouter(
+    dependencies=[Depends(verify.get_user_token)],
+)
 
 
 # GET api/v1/activity/{dwelling_id} - activity logs
@@ -24,8 +28,8 @@ async def activity_logs(
             "body": "string",
             "timesatmp": datetime.datetime.now(),
             "activty_type": "string",
-            "action_by": "string"
-            }
+            "action_by": "string",
+        }
     except Exception as e:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
