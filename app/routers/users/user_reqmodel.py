@@ -1,10 +1,10 @@
 from pydantic import BaseModel
-from datetime import datetime
+from typing import Optional
 
 
 class patch_req(BaseModel):
     full_name: str
-    date_of_birth: datetime
+    date_of_birth: Optional[str] = "YYYY-MM-DD"
     email: str
 
 

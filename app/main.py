@@ -4,7 +4,7 @@ from app.routers import api
 description = "user client interface"
 
 app = FastAPI(
-    title="Aquesa User APIs",
+    title="Aquesa Mobile APIs",
     summary="Provides Consumption,valve_Control,Activity_Logs & User APIs",
     description=description,
     version="1.0.0",
