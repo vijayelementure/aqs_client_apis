@@ -1,6 +1,7 @@
 from fastapi import APIRouter, status, HTTPException
 from datetime import datetime
 from app.routers.activity_log import activity_resmodel
+from typing import List
 
 router = APIRouter()
 
@@ -9,19 +10,21 @@ router = APIRouter()
 @router.get(
     "/{dwelling_id}",
     status_code=status.HTTP_200_OK,
-    response_model=activity_resmodel.activity_logs
+    response_model=List[activity_resmodel.activity_logs],
 )
-async def activity_logs(dwelling_id: str,):
+async def activity_logs(
+    dwelling_id: str,
+):
     try:
         # buisness logic
 
         return {
-                "dwelling_id": "string",
-                "title": "string",
-                "body": "string",
-                "timesatmp": datetime.datetime.now(),
-                "activty_type": ["string", "string"],
-            }
+            "dwelling_id": "string",
+            "title": "string",
+            "body": "string",
+            "timesatmp": datetime.datetime.now(),
+            "activty_type": ["string", "string"],
+        }
     except Exception as e:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
