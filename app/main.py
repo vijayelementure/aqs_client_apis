@@ -11,8 +11,7 @@ app = FastAPI(
     summary="Provides Consumption,valve_Control,Activity_Logs & User APIs",
     description=description,
     version="1.0.0",
-    docs_url="/docs",
-    openapi_url="/openapi.json",
+    root_path="/dev",
 )
 
 sentry_sdk.init(
