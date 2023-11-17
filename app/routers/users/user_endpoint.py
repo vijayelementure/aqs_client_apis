@@ -1,8 +1,8 @@
-from fastapi import APIRouter
-from fastapi import status
+from fastapi import APIRouter,HTTPException,status
 from app.routers.users import user_resmodel
 from app.routers.users import user_reqmodel
 import datetime
+
 
 router = APIRouter()
 
@@ -12,15 +12,18 @@ router = APIRouter()
     "/{phone_number}",
     status_code=status.HTTP_200_OK,
 )
-async def read_status(
-    phone_number: str,
-):
-    # buisness logic
-
-    return {
-        "message":"Signed in Successfully"
-        }
-
+async def read_status(phone_number: str,):
+    try:
+        # buisness logic here
+  
+        return {
+                "message":"Signed in Successfully"
+                }
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=str(e),
+        ) 
 
 
 # GET /api/v1/user_section/{dwelling_id}/ - Get user
@@ -29,17 +32,20 @@ async def read_status(
     status_code=status.HTTP_200_OK,
     response_model= user_resmodel.read_model
 )
-async def read_one(
-    dwelling_id: str,
-):
-    # buisness logic
+async def read_one(dwelling_id: str,):
+    try:        
+        # buisness logic
 
-    return {
-        "full_name": "string",
-        "date_of_birth": datetime,
-        "email": "string"
-        }
-
+        return {
+                "full_name": "string",
+                "date_of_birth": datetime,
+                "email": "string"
+                }
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=str(e),
+        )
 
 
 # PATCH /api/v1/user_section/{phone_number}/ - patch user
@@ -47,15 +53,19 @@ async def read_one(
     "/{dwelling_id}",
     status_code=status.HTTP_200_OK,
 )
-async def update_user(
-    dwelling_id: str, req:user_reqmodel.patch_req
-):
-    # buisness logic
+async def update_user(dwelling_id: str, req:user_reqmodel.patch_req):
+    try:
+        # buisness logic
 
-    return {
-        "message": "signup successful",
-        }
-    
+        return {
+                "message": "signup successful",
+                }
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+            detail=str(e),
+        )
+
 
 
 # PATCH /api/v1/user_section/{user_name}/ - patch user_name
@@ -63,29 +73,36 @@ async def update_user(
     "/{user_name}",
     status_code=status.HTTP_200_OK,
 )
-async def update_name(
-    user_name: str,
-):
-    # buisness logic
+async def update_name(user_name: str,):
+    try:
+        # buisness logic
 
-    return {
-        "message": "name changed",
-        }
+        return {
+                "message": "name changed",
+                }
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+            detail=str(e),
+        )
     
-    
+
 
 # PATCH /api/v1/user_section/{dwelling_id} - logout 
 @router.get(
     "/{dwelling_id}/",
     status_code=status.HTTP_200_OK,
 )
-async def log_out(
-    dwelling_id: str,req: user_reqmodel.logout_req
-):
-    # buisness logic
+async def log_out(dwelling_id: str,req: user_reqmodel.logout_req):
+    try:
+        # buisness logic
 
-    return {
-        "message": "logout successfully",
-        }
-    
+        return {
+                "message": "logout successfully",
+                }
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail=str(e),
+        )
 

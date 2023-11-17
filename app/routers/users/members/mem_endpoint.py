@@ -1,5 +1,4 @@
-from fastapi import APIRouter
-from fastapi import status
+from fastapi import APIRouter,status,HTTPException
 from app.routers.users.members import mem_reqmodel, mem_resmodel
 import datetime
 
@@ -11,15 +10,18 @@ router = APIRouter()
     "/{dwelling_id}",
     status_code=status.HTTP_201_CREATED,
 )
-async def add_member(
-    dwelling_id: str,req:mem_reqmodel.add_mem
-):
-    # buisness logic
+async def add_member(dwelling_id: str,req:mem_reqmodel.add_mem):
+    try:
+        # buisness logic
 
-    return {
-        "message":"members added successfully"
-        }
-    
+        return {
+                "message":"members added successfully"
+                }
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=str(e),
+        )
     
 
 # GET api/v1/members/{dwelling_id}/ - list of members
@@ -28,13 +30,16 @@ async def add_member(
     status_code=status.HTTP_200_OK,
     response_model= mem_resmodel.members_list
 )
-async def read_members(
-    dwelling_id: str,
-):
-    # buisness logic
+async def read_members(dwelling_id: str,):
+    try:
+        # buisness logic
 
-    return list(dict)
-
+        return list(dict)
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=str(e),
+        )
 
 
 # PATCH api/v1/members/{dwelling_id}/ - update member status
@@ -42,15 +47,18 @@ async def read_members(
     "/{dwelling_id}",
     status_code=status.HTTP_200_OK,
 )
-async def update_memstatus(
-    dwelling_id: str,
-):
-    # buisness logic
+async def update_memstatus(dwelling_id: str,):
+    try:
+        # buisness logic
 
-    return {
-        "message": "member status updated successfully"
-    }
-    
+        return {
+                "message": "member status updated successfully"
+                }
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+            detail=str(e),
+        )
     
 
 
@@ -59,14 +67,17 @@ async def update_memstatus(
     "/{dwelling_id}",
     status_code=status.HTTP_204_NO_CONTENT,
 )
-async def delete_member(
-    dwelling_id: str,
-):
-    # buisness logic
+async def delete_member(dwelling_id: str,):
+    try:
+        # buisness logic
 
-    return {
-        "message": "member deleted successfully"
-    }
-    
+        return {
+                "message": "member deleted successfully"
+               }
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_204_NO_CONTENT,
+            detail=str(e),
+        )
     
     
