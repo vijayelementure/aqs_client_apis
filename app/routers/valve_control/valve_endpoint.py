@@ -10,11 +10,12 @@ router = APIRouter()
     status_code=status.HTTP_200_OK,
     response_model=valve_resmodel.valve_status,
 )
-async def valve_status(dwelling_id: str, device_id: str):
+async def valve_status(dwelling_id: str, device_id: str | None):
     try:
         # buisness logic
 
-        return {"dwelling_id": "string", "device_id": "string", "status": 0}
+        return {"device_id": "string", "status": "string"} # Noqa
+
     except Exception as e:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
@@ -33,9 +34,8 @@ async def valve_opcl(dwelling_id: str, device_id: str, value: int):
         # buisness logic
 
         return {
-            "dwelling_id": "string",
             "device_id": "string",
-            "valve_status": 1,
+            "valve_status": "string",
         }
     except Exception as e:
         raise HTTPException(
@@ -77,7 +77,7 @@ async def set_limit(
     try:
         # buisness logic
 
-        return {"dwelling_id": "string", "limit": 100}
+        return {"device_id": "string", "limit": 100}
     except Exception as e:
         raise HTTPException(
             status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,

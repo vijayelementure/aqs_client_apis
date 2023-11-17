@@ -2,19 +2,16 @@ from pydantic import BaseModel
 
 
 class valve_ops(BaseModel):
-    dwelling_id: str
     device_id: str
-    valve_status: bool
+    valve_status: str
 
 
 class valve_status(BaseModel):
-    dwelling_id: str
     device_id: str
-    status: bool
+    status: str
 
 
 class ops_limit(BaseModel):
-    dwelling_id: str
     limit: int
 
 
