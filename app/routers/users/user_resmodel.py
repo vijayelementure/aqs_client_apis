@@ -47,3 +47,8 @@ class general_response(BaseModel):
     detail: str
     status: str
     meta: meta_info
+
+
+class verify_user(BaseModel):
+    user_available: bool
+    detail: str

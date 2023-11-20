@@ -13,7 +13,7 @@ router = APIRouter()
 @router.get(
     "/verify_user/{phone_number}",
     status_code=status.HTTP_200_OK,
-    response_model=user_resmodel.user_model,
+    response_model=user_resmodel.verify_user,
 )
 async def verify_user(
     phone_number: str,
@@ -21,33 +21,8 @@ async def verify_user(
     try:
         # buisness logic here
         return {
-            "user_id": "string",
-            "name": "string",
-            "mobile": "string",
-            "email": "string",
-            "birth_date": "string",
-            "dp_url": "string",
-            "dwell_info": [
-                {
-                    "community_id": "string",
-                    "community_name": "string",
-                    "dwell_id": "string",
-                    "block": "string",
-                    "floor_no": "string",
-                    "flat_no": "string",
-                    "role": "string",
-                    "user_status": "string",
-                }
-            ],
-            "meta": {
-                "ver": "string",
-                "created_by": "string",
-                "created_at": "2023-11-17T12:04:55.672Z",
-                "activity": {
-                    "updated_by": "string",
-                    "updated_at": "2023-11-17T12:04:55.672Z",
-                },
-            },
+            "user_available": True,
+            "detail": "User Available and Activated",
         }
     except Exception as e:
         raise HTTPException(
