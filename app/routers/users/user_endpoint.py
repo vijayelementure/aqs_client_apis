@@ -31,9 +31,9 @@ async def verify_user(
         )
 
 
-# GET /api/v1/get_user/{user_id}/ - Get user
+# GET /api/v1/get_user/ - Get user
 @router.get(
-    "/get_user/{user_id}",
+    "/get_user/",
     status_code=status.HTTP_200_OK,
     response_model=user_resmodel.user_model,
 )
@@ -81,7 +81,7 @@ async def get_user(
 
 # PATCH /api/v1/users/{user_id}/ - patch user
 @router.patch(
-    "/update_user/{user_id}",
+    "/update_user/",
     status_code=status.HTTP_200_OK,
     response_model=user_resmodel.general_response,
 )
@@ -137,7 +137,7 @@ async def update_user(
 
 # PATCH /api/v1/user_section/{dwelling_id} - logout
 @router.post(
-    "/logout/{user_id}",
+    "/logout",
     status_code=status.HTTP_200_OK,
     response_model=user_resmodel.general_response,
 )

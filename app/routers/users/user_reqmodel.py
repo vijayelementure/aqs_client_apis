@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from typing import Optional, List
+from typing import Optional
 
 
 class dwell_info(BaseModel):
@@ -11,9 +11,7 @@ class dwell_info(BaseModel):
 class patch_req(BaseModel):
     name: Optional[str]
     date_of_birth: Optional[str] = "YYYY-MM-DD"
-    mobile: Optional[str]
     email: Optional[str]
-    dwellInfo: List[dwell_info]
 
 
 class logout_req(BaseModel):

@@ -12,11 +12,14 @@ router = APIRouter(
 
 # POST api/v1/members/{dwelling_id}/ - add a user
 @router.post(
-    "/members/",
+    "/members/{dwelling_id}",
     status_code=status.HTTP_201_CREATED,
     response_model=user_resmodel.general_response,
 )
-async def add_member(req: mem_reqmodel.add_user):
+async def add_member(
+    req: mem_reqmodel.add_user,
+    dwelling_id: str,
+):
     try:
         # buisness logic
 
@@ -50,7 +53,7 @@ async def get_users_list(
 
 # PATCH api/v1/members/{dwelling_id}/ - update member status
 @router.patch(
-    "/members/{user_id}",
+    "/members/{dwelling_id/{user_id}",
     status_code=status.HTTP_200_OK,
     response_model=user_resmodel.general_response,
 )
