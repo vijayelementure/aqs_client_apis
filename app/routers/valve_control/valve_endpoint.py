@@ -1,6 +1,7 @@
 from fastapi import APIRouter, status, HTTPException, Depends
 from app.routers.valve_control import valve_resmodel, valve_reqmodel
 from app.auth import verify
+from typing import List
 
 router = APIRouter(
     dependencies=[Depends(verify.get_user_token)],
@@ -9,11 +10,11 @@ router = APIRouter(
 
 # GET api/v1/valve/{dwelling_id}/{device_id} - valve status
 @router.get(
-    "/valve_status/{dwelling_id}/{device_id}",
+    "/dwelling/{dwelling_id}",
     status_code=status.HTTP_200_OK,
-    response_model=valve_resmodel.valve_status,
+    response_model=List[valve_resmodel.valve_status],
 )
-async def valve_status(dwelling_id: str, device_id: str):
+async def valve_status():
     try:
         # buisness logic
 
@@ -33,14 +34,13 @@ async def valve_status(dwelling_id: str, device_id: str):
 
 # PUT api/v1/valve/{dwelling_id}/{device_id}/- valve open/close
 @router.put(
-    "/valve_ops/{dwelling_id}/{device_id}/{value}",
+    "/dwelling/{dwelling_id}/valve",
     status_code=status.HTTP_200_OK,
     response_model=valve_resmodel.valve_ops,
 )
 async def valve_opcl(
     dwelling_id: str,
-    device_id: str,
-    value: str,
+    req: valve_reqmodel.valve_ops,
 ):
     try:
         # buisness logic
@@ -58,7 +58,7 @@ async def valve_opcl(
 
 # GET api/v1/limit/{dwelling_id}/- get limit
 @router.get(
-    "/get_limit/{dwelling_id}",
+    "/dwelling/{dwelling_id}/limit",
     status_code=status.HTTP_200_OK,
     response_model=valve_resmodel.ops_limit,
 )
@@ -78,13 +78,13 @@ async def get_limit(
 
 # PATCH api/v1/limit/{dwelling_id}/- set limit
 @router.patch(
-    "/set_limit/{dwelling_id}",
+    "/dwelling/{dwelling_id}/limit",
     status_code=status.HTTP_200_OK,
-    response_model=valve_resmodel.ops_limit,
+    response_model=valve_resmodel.flow_limit,
 )
 async def set_limit(
     dwelling_id: str,
-    limit: int,
+    req: valve_reqmodel.flow_limit,
 ):
     try:
         # buisness logic
@@ -99,13 +99,12 @@ async def set_limit(
 
 # PATCH api/v1/CustomTag/{dwelling_id}/{device_id} - custom_tag
 @router.patch(
-    "/custom_tag/{dwelling_id}/{device_id}",
+    "/dwelling/{dwelling_id}/valve",
     status_code=status.HTTP_200_OK,
     response_model=valve_resmodel.custom_tag,
 )
 async def custom_tag(
     dwelling_id: str,
-    device_id: str,
     req: valve_reqmodel.custom_tag,
 ):
     try:

@@ -8,7 +8,7 @@ class valve_ops(BaseModel):
 
 class valve_status(BaseModel):
     device_id: str
-    status: str
+    valve_status: str
     tag: str
     custom_tag: str
 
@@ -20,3 +20,8 @@ class ops_limit(BaseModel):
 class custom_tag(BaseModel):
     device_id: str
     custom_tag: str
+
+
+class flow_limit(BaseModel):
+    limit: int
+    detail: str

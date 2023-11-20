@@ -6,6 +6,8 @@ botocore==1.32.2
 certifi==2023.7.22
 charset-normalizer==3.3.2
 click==8.1.7
+dnspython==2.4.2
+email-validator==2.1.0.post1
 fastapi==0.104.1
 flake8==6.1.0
 h11==0.14.0

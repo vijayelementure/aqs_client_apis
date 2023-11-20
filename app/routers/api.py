@@ -35,6 +35,6 @@ router.include_router(
 
 router.include_router(
     activity_endpoint.router,
-    prefix="/activity",
+    prefix="",
     tags=["Activity Log APIs"],
 )

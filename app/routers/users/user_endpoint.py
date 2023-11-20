@@ -33,7 +33,7 @@ async def verify_user(
 
 # GET /api/v1/get_user/ - Get user
 @router.get(
-    "/get_user",
+    "/user",
     status_code=status.HTTP_200_OK,
     response_model=user_resmodel.user_model,
 )
@@ -49,7 +49,7 @@ async def get_user(
             "mobile": "string",
             "email": "string",
             "birth_date": "string",
-            "dp_url": "string",
+            "profile_picture": "string",
             "dwell_info": [
                 {
                     "community_id": "string",
@@ -81,12 +81,11 @@ async def get_user(
 
 # PATCH /api/v1/users/{user_id}/ - patch user
 @router.patch(
-    "/update_user",
+    "/user",
     status_code=status.HTTP_200_OK,
-    response_model=user_resmodel.general_response,
+    response_model=user_resmodel.user_model,
 )
 async def update_user(
-    user_id: str,
     req: user_reqmodel.patch_req,
     user_token=Depends(verify.get_user_token),
 ):
@@ -94,15 +93,31 @@ async def update_user(
         # buisness logic
 
         return {
-            "detail": "string",
-            "status": "string",
+            "user_id": "string",
+            "name": "string",
+            "mobile": "string",
+            "email": "string",
+            "birth_date": "string",
+            "profile_picture": "string",
+            "dwell_info": [
+                {
+                    "community_id": "string",
+                    "community_name": "string",
+                    "dwell_id": "string",
+                    "block": "string",
+                    "floor_no": "string",
+                    "flat_no": "string",
+                    "role": "string",
+                    "user_status": "string",
+                }
+            ],
             "meta": {
                 "ver": "string",
                 "created_by": "string",
-                "created_at": "2023-11-17T12:35:35.009Z",
+                "created_at": "2023-11-17T12:04:55.672Z",
                 "activity": {
                     "updated_by": "string",
-                    "updated_at": "2023-11-17T12:35:35.009Z",
+                    "updated_at": "2023-11-17T12:04:55.672Z",
                 },
             },
         }
@@ -137,7 +152,7 @@ async def update_user(
 
 # PATCH /api/v1/user_section/{dwelling_id} - logout
 @router.post(
-    "/logout",
+    "/auth/logout",
     status_code=status.HTTP_200_OK,
     response_model=user_resmodel.general_response,
 )
@@ -154,5 +169,27 @@ async def log_out(
     except Exception as e:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
+            detail=str(e),
+        )
+
+
+@router.post(
+    "/user/register-device",
+    status_code=status.HTTP_200_OK,
+    response_model=user_resmodel.register_device_req,
+)
+async def register_device(
+    req: user_reqmodel.register_device_req,
+    user_token=Depends(verify.get_user_token),
+):
+    try:
+        # buisness logic
+
+        return {
+            "detail": "device registered successfully",
+        }
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
             detail=str(e),
         )

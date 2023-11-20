@@ -15,5 +15,9 @@ class patch_req(BaseModel):
 
 
 class logout_req(BaseModel):
+    device_id: str
+
+
+class register_device_req(BaseModel):
+    device_id: str
     fcm_token: str
-    devid: str

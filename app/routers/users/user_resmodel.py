@@ -52,3 +52,9 @@ class general_response(BaseModel):
 class verify_user(BaseModel):
     user_available: bool
     detail: str
+
+
+class register_device_req(BaseModel):
+    detail: str
+    user_id: str
+    device_id: str
