@@ -58,6 +58,7 @@ async def get_users_list(
     response_model=user_resmodel.general_response,
 )
 async def update_memstatus(
+    dwelling_id: str,
     user_id: str,
     req: mem_reqmodel.update_mem,
 ):
