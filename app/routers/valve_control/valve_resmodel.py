@@ -1,4 +1,5 @@
 from pydantic import BaseModel
+from typing import List
 
 
 class valve_activity(BaseModel):
@@ -18,6 +19,10 @@ class valve_status(BaseModel):
     tag: str
     custom_tag: str
     activity: valve_activity
+
+
+class valve_status_all(BaseModel):
+    devices: List[valve_status]
 
 
 class ops_limit(BaseModel):

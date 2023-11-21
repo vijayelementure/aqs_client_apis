@@ -38,8 +38,8 @@ class user_model(BaseModel):
     mobile: str
     email: str
     birth_date: str
-    dp_url: str
-    dwell_info: List[dwell_info]
+    profile_picture: str
+    dwelling: List[dwell_info]
     meta: meta_info
 
 

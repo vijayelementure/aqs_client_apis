@@ -1,6 +1,6 @@
 from fastapi import APIRouter, status, HTTPException, Depends
 from datetime import datetime
-from app.routers.activity_log import activity_resmodel, activity_reqmodel
+from app.routers.activity_log import activity_resmodel
 from typing import List
 
 from app.auth import verify
@@ -17,7 +17,8 @@ router = APIRouter(
     response_model=List[activity_resmodel.activity_logs],
 )
 async def activity_logs(
-    req: activity_reqmodel.activity_logs,
+    dwelling_id: str,
+    device_id: str,
 ):
     try:
         # buisness logic

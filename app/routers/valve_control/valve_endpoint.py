@@ -1,7 +1,6 @@
 from fastapi import APIRouter, status, HTTPException, Depends
 from app.routers.valve_control import valve_resmodel, valve_reqmodel
 from app.auth import verify
-from typing import List
 
 router = APIRouter(
     dependencies=[Depends(verify.get_user_token)],
@@ -12,9 +11,11 @@ router = APIRouter(
 @router.get(
     "/dwelling/{dwelling_id}",
     status_code=status.HTTP_200_OK,
-    response_model=List[valve_resmodel.valve_status],
+    response_model=valve_resmodel.valve_status_all,
 )
-async def valve_status():
+async def valve_status(
+    dwelling_id: str,
+):
     try:
         # buisness logic
 
