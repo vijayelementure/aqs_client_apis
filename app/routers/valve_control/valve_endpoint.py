@@ -23,6 +23,10 @@ async def valve_status():
             "status": "string",
             "tag": "string",
             "custom_tag": "string",
+            "activity": {
+                "datetime": "string",
+                "action_by": "string",
+            },
         }  # Noqa
 
     except Exception as e:
@@ -48,6 +52,10 @@ async def valve_opcl(
         return {
             "device_id": "string",
             "valve_status": "string",
+            "activity": {
+                "datetime": "string",
+                "action_by": "string",
+            },
         }
     except Exception as e:
         raise HTTPException(

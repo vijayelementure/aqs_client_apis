@@ -9,14 +9,14 @@ from app.auth import verify
 router = APIRouter()
 
 
-# GET /api/v1/verify_user/{phone_number}/ -verify user
+# GET /api/v1/verify/{phone_number}/ -verify user
 @router.get(
-    "/verify_user/{phone_number}",
+    "/verify/{ph}",
     status_code=status.HTTP_200_OK,
     response_model=user_resmodel.verify_user,
 )
 async def verify_user(
-    phone_number: str,
+    ph: str,
 ):
     try:
         # buisness logic here
